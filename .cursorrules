@@ -1,0 +1,49 @@
+# Cursor rule mirror for kodmoz_notebook
+# This file is loaded by Cursor IDE when working in this directory.
+
+# Skills to load before any change
+required_skills:
+  - kodmoz-notebook-mobile
+  - kodmoz-flutter-mobile
+  - kodmoz-open-notebook-operations
+
+# Read order for first-time context
+read_first:
+  - docs/README.md
+  - docs/architecture/overview.md
+  - docs/architecture/auth.md
+  - docs/api/README.md
+  - docs/operations/local-verified-facts.md
+  - docs/operations/known-bugs.md
+
+# Build gate — run these in order before any commit
+build_gate:
+  - "cd /c/Kodmoz/mobile/kodmoz_notebook && flutter analyze"
+  - "cd /c/Kodmoz/mobile/kodmoz_notebook && flutter test"
+  - "cd /c/Kodmoz/mobile/kodmoz_notebook && dart run test/integration_smoke.dart"
+  - "cd /c/Kodmoz/mobile/kodmoz_notebook && flutter build apk --release"
+
+# Verify the merged manifest after every release build
+post_build_verify:
+  - "aapt dump xmltree build/app/outputs/flutter-apk/app-release.apk AndroidManifest.xml"
+
+# Hard rules — agent must not break these
+hard_rules:
+  - "AndroidManifest.xml must set android:name explicitly to io.flutter.embedding.android.FlutterApplication. Never use ${applicationName} placeholder."
+  - "MainActivity.kt package must equal namespace in build.gradle.kts (currently com.kodmoz.notebook)."
+  - "Do not add flutter_secure_storage: build host lacks Android SDK 34."
+  - "Bearer token must not be hard-coded in any file under lib/. The Kodmoz!!2026!! value is only allowed in test/integration_smoke.dart."
+  - "Never ship an APK without running the post_build_verify step."
+
+# Code style
+code_style:
+  indent: 2_spaces
+  print_allowed_in:
+    - "test/integration_smoke.dart"
+  ignore_for_file_allowed_in:
+    - "test/integration_smoke.dart"
+
+# Where the bearer token comes from
+secrets:
+  bearer_token_source: "kubectl -n open-notebook get secret open-notebook-secrets -o jsonpath='{.data.app-password}' | base64 -d"
+  bearer_token_value_for_local_dev_only: "Kodmoz!!2026!!"

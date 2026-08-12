@@ -1,0 +1,1702 @@
+{
+  "routes": {
+    "auth": [
+      [
+        "GET",
+        "/auth/status"
+      ]
+    ],
+    "chat": [
+      [
+        "GET",
+        "/chat/sessions"
+      ],
+      [
+        "POST",
+        "/chat/sessions"
+      ],
+      [
+        "PUT",
+        "/chat/sessions/{session_id}"
+      ],
+      [
+        "DELETE",
+        "/chat/sessions/{session_id}"
+      ],
+      [
+        "POST",
+        "/chat/execute"
+      ],
+      [
+        "POST",
+        "/chat/context"
+      ]
+    ],
+    "commands": [
+      [
+        "POST",
+        "/commands/jobs"
+      ],
+      [
+        "GET",
+        "/commands/jobs/{job_id}"
+      ],
+      [
+        "GET",
+        "/commands/jobs"
+      ],
+      [
+        "DELETE",
+        "/commands/jobs/{job_id}"
+      ],
+      [
+        "GET",
+        "/commands/registry/debug"
+      ]
+    ],
+    "config": [
+      [
+        "GET",
+        "/config"
+      ]
+    ],
+    "credentials": [
+      [
+        "GET",
+        "/credentials/status"
+      ],
+      [
+        "GET",
+        "/credentials/env-status"
+      ],
+      [
+        "GET",
+        "/credentials/by-provider/{provider}"
+      ],
+      [
+        "GET",
+        "/credentials/{credential_id}"
+      ],
+      [
+        "PUT",
+        "/credentials/{credential_id}"
+      ],
+      [
+        "DELETE",
+        "/credentials/{credential_id}"
+      ],
+      [
+        "POST",
+        "/credentials/{credential_id}/test"
+      ],
+      [
+        "POST",
+        "/credentials/{credential_id}/discover"
+      ],
+      [
+        "POST",
+        "/credentials/{credential_id}/register-models"
+      ],
+      [
+        "POST",
+        "/credentials/migrate-from-provider-config"
+      ],
+      [
+        "POST",
+        "/credentials/migrate-from-env"
+      ]
+    ],
+    "embedding": [
+      [
+        "POST",
+        "/embed"
+      ]
+    ],
+    "embedding_rebuild": [
+      [
+        "POST",
+        "/rebuild"
+      ],
+      [
+        "GET",
+        "/rebuild/{command_id}/status"
+      ]
+    ],
+    "episode_profiles": [
+      [
+        "GET",
+        "/episode-profiles"
+      ],
+      [
+        "GET",
+        "/episode-profiles/{profile_name}"
+      ],
+      [
+        "POST",
+        "/episode-profiles"
+      ],
+      [
+        "PUT",
+        "/episode-profiles/{profile_id}"
+      ],
+      [
+        "DELETE",
+        "/episode-profiles/{profile_id}"
+      ]
+    ],
+    "insights": [
+      [
+        "GET",
+        "/insights/{insight_id}"
+      ],
+      [
+        "DELETE",
+        "/insights/{insight_id}"
+      ],
+      [
+        "POST",
+        "/insights/{insight_id}/save-as-note"
+      ]
+    ],
+    "languages": [
+      [
+        "GET",
+        "/languages"
+      ]
+    ],
+    "models": [
+      [
+        "GET",
+        "/models"
+      ],
+      [
+        "POST",
+        "/models"
+      ],
+      [
+        "DELETE",
+        "/models/{model_id}"
+      ],
+      [
+        "POST",
+        "/models/{model_id}/test"
+      ],
+      [
+        "GET",
+        "/models/defaults"
+      ],
+      [
+        "PUT",
+        "/models/defaults"
+      ],
+      [
+        "GET",
+        "/models/providers"
+      ],
+      [
+        "POST",
+        "/models/sync/{provider}"
+      ],
+      [
+        "POST",
+        "/models/sync"
+      ],
+      [
+        "GET",
+        "/models/count/{provider}"
+      ],
+      [
+        "GET",
+        "/models/by-provider/{provider}"
+      ],
+      [
+        "POST",
+        "/models/auto-assign"
+      ]
+    ],
+    "notebooks": [
+      [
+        "GET",
+        "/notebooks"
+      ],
+      [
+        "POST",
+        "/notebooks"
+      ],
+      [
+        "GET",
+        "/recently-viewed"
+      ],
+      [
+        "GET",
+        "/notebooks/{notebook_id}"
+      ],
+      [
+        "PUT",
+        "/notebooks/{notebook_id}"
+      ],
+      [
+        "POST",
+        "/notebooks/{notebook_id}/sources/{source_id}"
+      ],
+      [
+        "DELETE",
+        "/notebooks/{notebook_id}/sources/{source_id}"
+      ],
+      [
+        "DELETE",
+        "/notebooks/{notebook_id}"
+      ]
+    ],
+    "notes": [
+      [
+        "GET",
+        "/notes"
+      ],
+      [
+        "POST",
+        "/notes"
+      ],
+      [
+        "GET",
+        "/notes/{note_id}"
+      ],
+      [
+        "PUT",
+        "/notes/{note_id}"
+      ],
+      [
+        "DELETE",
+        "/notes/{note_id}"
+      ]
+    ],
+    "podcasts": [
+      [
+        "POST",
+        "/podcasts/generate"
+      ],
+      [
+        "GET",
+        "/podcasts/jobs/{job_id}"
+      ],
+      [
+        "GET",
+        "/podcasts/episodes"
+      ],
+      [
+        "GET",
+        "/podcasts/episodes/{episode_id}"
+      ],
+      [
+        "GET",
+        "/podcasts/episodes/{episode_id}/audio"
+      ],
+      [
+        "POST",
+        "/podcasts/episodes/{episode_id}/retry"
+      ],
+      [
+        "DELETE",
+        "/podcasts/episodes/{episode_id}"
+      ]
+    ],
+    "search": [
+      [
+        "POST",
+        "/search"
+      ],
+      [
+        "POST",
+        "/search/ask"
+      ],
+      [
+        "POST",
+        "/search/ask/simple"
+      ]
+    ],
+    "settings": [
+      [
+        "GET",
+        "/settings"
+      ],
+      [
+        "PUT",
+        "/settings"
+      ]
+    ],
+    "source_chat": [
+      [
+        "POST",
+        "/sources/{source_id}/chat/sessions/{session_id}/messages"
+      ]
+    ],
+    "sources": [
+      [
+        "GET",
+        "/sources"
+      ],
+      [
+        "POST",
+        "/sources"
+      ],
+      [
+        "POST",
+        "/sources/json"
+      ],
+      [
+        "GET",
+        "/sources/{source_id}"
+      ],
+      [
+        "GET",
+        "/sources/{source_id}/download"
+      ],
+      [
+        "GET",
+        "/sources/{source_id}/status"
+      ],
+      [
+        "PUT",
+        "/sources/{source_id}"
+      ],
+      [
+        "POST",
+        "/sources/{source_id}/retry"
+      ],
+      [
+        "DELETE",
+        "/sources/{source_id}"
+      ],
+      [
+        "GET",
+        "/sources/{source_id}/insights"
+      ]
+    ],
+    "speaker_profiles": [
+      [
+        "GET",
+        "/speaker-profiles"
+      ],
+      [
+        "GET",
+        "/speaker-profiles/{profile_name}"
+      ],
+      [
+        "POST",
+        "/speaker-profiles"
+      ],
+      [
+        "PUT",
+        "/speaker-profiles/{profile_id}"
+      ],
+      [
+        "DELETE",
+        "/speaker-profiles/{profile_id}"
+      ]
+    ],
+    "transformations": [
+      [
+        "GET",
+        "/transformations"
+      ],
+      [
+        "POST",
+        "/transformations"
+      ],
+      [
+        "POST",
+        "/transformations/execute"
+      ],
+      [
+        "GET",
+        "/transformations/default-prompt"
+      ],
+      [
+        "PUT",
+        "/transformations/default-prompt"
+      ],
+      [
+        "DELETE",
+        "/transformations/{transformation_id}"
+      ]
+    ]
+  },
+  "models": [
+    {
+      "name": "NotebookCreate",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "name",
+          "type": "str",
+          "field": "..., description=\"Name of the notebook\""
+        },
+        {
+          "name": "description",
+          "type": "str",
+          "field": "default=\"\", description=\"Description of the notebook\""
+        }
+      ]
+    },
+    {
+      "name": "NotebookUpdate",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "name",
+          "type": "Optional[str]",
+          "field": "None, description=\"Name of the notebook\""
+        },
+        {
+          "name": "description",
+          "type": "Optional[str]",
+          "field": "None, description=\"Description of the notebook\""
+        }
+      ]
+    },
+    {
+      "name": "NotebookResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "id",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "name",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "description",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "archived",
+          "type": "bool",
+          "field": ""
+        },
+        {
+          "name": "created",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "updated",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "source_count",
+          "type": "int",
+          "field": ""
+        },
+        {
+          "name": "note_count",
+          "type": "int",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "RecentlyViewedResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "type",
+          "type": "Literal[\"notebook\", \"source\"]",
+          "field": ""
+        },
+        {
+          "name": "id",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "title",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "last_viewed_at",
+          "type": "str",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "SearchRequest",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "query",
+          "type": "str",
+          "field": "..., description=\"Search query\""
+        },
+        {
+          "name": "type",
+          "type": "Literal[\"text\", \"vector\"]",
+          "field": "\"text\", description=\"Search type\""
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "field": "100, description=\"Maximum number of results\", ge=1, le=1000"
+        },
+        {
+          "name": "search_sources",
+          "type": "bool",
+          "field": "True, description=\"Include sources in search\""
+        },
+        {
+          "name": "search_notes",
+          "type": "bool",
+          "field": "True, description=\"Include notes in search\""
+        }
+      ]
+    },
+    {
+      "name": "SearchResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "results",
+          "type": "List[Dict[str, Any]]",
+          "field": "..., description=\"Search results\""
+        },
+        {
+          "name": "total_count",
+          "type": "int",
+          "field": "..., description=\"Total number of results\""
+        },
+        {
+          "name": "search_type",
+          "type": "str",
+          "field": "..., description=\"Type of search performed\""
+        }
+      ]
+    },
+    {
+      "name": "AskRequest",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "question",
+          "type": "str",
+          "field": "..., description=\"Question to ask the knowledge base\""
+        },
+        {
+          "name": "strategy_model",
+          "type": "str",
+          "field": "..., description=\"Model ID for query strategy\""
+        },
+        {
+          "name": "answer_model",
+          "type": "str",
+          "field": "..., description=\"Model ID for individual answers\""
+        },
+        {
+          "name": "final_answer_model",
+          "type": "str",
+          "field": "..., description=\"Model ID for final answer\""
+        }
+      ]
+    },
+    {
+      "name": "AskResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "answer",
+          "type": "str",
+          "field": "..., description=\"Final answer from the knowledge base\""
+        },
+        {
+          "name": "question",
+          "type": "str",
+          "field": "..., description=\"Original question\""
+        }
+      ]
+    },
+    {
+      "name": "ModelCreate",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "name",
+          "type": "str",
+          "field": "..., description=\"Model name (e.g., gpt-5-mini, claude, gemini)\""
+        }
+      ]
+    },
+    {
+      "name": "ModelResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "id",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "name",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "provider",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "type",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "created",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "updated",
+          "type": "str",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "DefaultModelsResponse",
+      "bases": "BaseModel",
+      "fields": []
+    },
+    {
+      "name": "ProviderAvailabilityResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "available",
+          "type": "List[str]",
+          "field": "..., description=\"List of available providers\""
+        },
+        {
+          "name": "unavailable",
+          "type": "List[str]",
+          "field": "..., description=\"List of unavailable providers\""
+        }
+      ]
+    },
+    {
+      "name": "TransformationCreate",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "name",
+          "type": "str",
+          "field": "..., description=\"Transformation name\""
+        },
+        {
+          "name": "title",
+          "type": "str",
+          "field": "..., description=\"Display title for the transformation\""
+        },
+        {
+          "name": "prompt",
+          "type": "str",
+          "field": "..., description=\"The transformation prompt\""
+        }
+      ]
+    },
+    {
+      "name": "TransformationUpdate",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "name",
+          "type": "Optional[str]",
+          "field": "None, description=\"Transformation name\""
+        },
+        {
+          "name": "prompt",
+          "type": "Optional[str]",
+          "field": "None, description=\"The transformation prompt\""
+        }
+      ]
+    },
+    {
+      "name": "TransformationResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "id",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "name",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "title",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "description",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "prompt",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "apply_default",
+          "type": "bool",
+          "field": ""
+        },
+        {
+          "name": "created",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "updated",
+          "type": "str",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "TransformationExecuteRequest",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "input_text",
+          "type": "str",
+          "field": "..., description=\"Text to transform\""
+        }
+      ]
+    },
+    {
+      "name": "TransformationExecuteResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "output",
+          "type": "str",
+          "field": "..., description=\"Transformed text\""
+        },
+        {
+          "name": "transformation_id",
+          "type": "str",
+          "field": "..., description=\"ID of the transformation used\""
+        },
+        {
+          "name": "model_id",
+          "type": "Optional[str]",
+          "field": "None, description=\"Model ID used\""
+        }
+      ]
+    },
+    {
+      "name": "DefaultPromptResponse",
+      "bases": "BaseModel",
+      "fields": []
+    },
+    {
+      "name": "DefaultPromptUpdate",
+      "bases": "BaseModel",
+      "fields": []
+    },
+    {
+      "name": "NoteCreate",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "title",
+          "type": "Optional[str]",
+          "field": "None, description=\"Note title\""
+        },
+        {
+          "name": "content",
+          "type": "str",
+          "field": "..., description=\"Note content\""
+        },
+        {
+          "name": "note_type",
+          "type": "Optional[str]",
+          "field": "\"human\", description=\"Type of note (human, ai)\""
+        }
+      ]
+    },
+    {
+      "name": "NoteUpdate",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "title",
+          "type": "Optional[str]",
+          "field": "None, description=\"Note title\""
+        },
+        {
+          "name": "content",
+          "type": "Optional[str]",
+          "field": "None, description=\"Note content\""
+        },
+        {
+          "name": "note_type",
+          "type": "Optional[str]",
+          "field": "None, description=\"Type of note (human, ai)\""
+        }
+      ]
+    },
+    {
+      "name": "NoteResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "id",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "title",
+          "type": "Optional[str]",
+          "field": ""
+        },
+        {
+          "name": "content",
+          "type": "Optional[str]",
+          "field": ""
+        },
+        {
+          "name": "note_type",
+          "type": "Optional[str]",
+          "field": ""
+        },
+        {
+          "name": "created",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "updated",
+          "type": "str",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "EmbedRequest",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "item_id",
+          "type": "str",
+          "field": "..., description=\"ID of the item to embed\""
+        },
+        {
+          "name": "item_type",
+          "type": "str",
+          "field": "..., description=\"Type of item (source, note)\""
+        }
+      ]
+    },
+    {
+      "name": "EmbedResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "success",
+          "type": "bool",
+          "field": "..., description=\"Whether embedding was successful\""
+        },
+        {
+          "name": "message",
+          "type": "str",
+          "field": "..., description=\"Result message\""
+        },
+        {
+          "name": "item_id",
+          "type": "str",
+          "field": "..., description=\"ID of the item that was embedded\""
+        },
+        {
+          "name": "item_type",
+          "type": "str",
+          "field": "..., description=\"Type of item that was embedded\""
+        }
+      ]
+    },
+    {
+      "name": "RebuildRequest",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "include_sources",
+          "type": "bool",
+          "field": "True, description=\"Include sources in rebuild\""
+        },
+        {
+          "name": "include_notes",
+          "type": "bool",
+          "field": "True, description=\"Include notes in rebuild\""
+        },
+        {
+          "name": "include_insights",
+          "type": "bool",
+          "field": "True, description=\"Include insights in rebuild\""
+        }
+      ]
+    },
+    {
+      "name": "RebuildResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "command_id",
+          "type": "str",
+          "field": "..., description=\"Command ID to track progress\""
+        },
+        {
+          "name": "total_items",
+          "type": "int",
+          "field": "..., description=\"Estimated number of items to process\""
+        },
+        {
+          "name": "message",
+          "type": "str",
+          "field": "..., description=\"Status message\""
+        }
+      ]
+    },
+    {
+      "name": "RebuildProgress",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "processed",
+          "type": "int",
+          "field": "..., description=\"Number of items processed\""
+        },
+        {
+          "name": "total",
+          "type": "int",
+          "field": "..., description=\"Total items to process\""
+        },
+        {
+          "name": "percentage",
+          "type": "float",
+          "field": "..., description=\"Progress percentage\""
+        }
+      ]
+    },
+    {
+      "name": "RebuildStats",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "sources",
+          "type": "int",
+          "field": "0, description=\"Sources processed\""
+        },
+        {
+          "name": "notes",
+          "type": "int",
+          "field": "0, description=\"Notes processed\""
+        },
+        {
+          "name": "insights",
+          "type": "int",
+          "field": "0, description=\"Insights processed\""
+        },
+        {
+          "name": "failed",
+          "type": "int",
+          "field": "0, description=\"Failed items\""
+        }
+      ]
+    },
+    {
+      "name": "RebuildStatusResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "command_id",
+          "type": "str",
+          "field": "..., description=\"Command ID\""
+        },
+        {
+          "name": "status",
+          "type": "str",
+          "field": "..., description=\"Status: queued, running, completed, failed\""
+        }
+      ]
+    },
+    {
+      "name": "SettingsResponse",
+      "bases": "BaseModel",
+      "fields": []
+    },
+    {
+      "name": "SettingsUpdate",
+      "bases": "BaseModel",
+      "fields": []
+    },
+    {
+      "name": "AssetModel",
+      "bases": "BaseModel",
+      "fields": []
+    },
+    {
+      "name": "SourceCreate",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "type",
+          "type": "str",
+          "field": "..., description=\"Source type: link, upload, or text\""
+        },
+        {
+          "name": "url",
+          "type": "Optional[str]",
+          "field": "None, description=\"URL for link type\""
+        },
+        {
+          "name": "file_path",
+          "type": "Optional[str]",
+          "field": "None, description=\"File path for upload type\""
+        },
+        {
+          "name": "content",
+          "type": "Optional[str]",
+          "field": "None, description=\"Text content for text type\""
+        },
+        {
+          "name": "title",
+          "type": "Optional[str]",
+          "field": "None, description=\"Source title\""
+        },
+        {
+          "name": "embed",
+          "type": "bool",
+          "field": "False, description=\"Whether to embed content for vector search\""
+        }
+      ]
+    },
+    {
+      "name": "SourceUpdate",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "title",
+          "type": "Optional[str]",
+          "field": "None, description=\"Source title\""
+        },
+        {
+          "name": "topics",
+          "type": "Optional[List[str]]",
+          "field": "None, description=\"Source topics\""
+        }
+      ]
+    },
+    {
+      "name": "SourceResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "id",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "title",
+          "type": "Optional[str]",
+          "field": ""
+        },
+        {
+          "name": "topics",
+          "type": "Optional[List[str]]",
+          "field": ""
+        },
+        {
+          "name": "asset",
+          "type": "Optional[AssetModel]",
+          "field": ""
+        },
+        {
+          "name": "full_text",
+          "type": "Optional[str]",
+          "field": ""
+        },
+        {
+          "name": "embedded",
+          "type": "bool",
+          "field": ""
+        },
+        {
+          "name": "embedded_chunks",
+          "type": "int",
+          "field": ""
+        },
+        {
+          "name": "created",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "updated",
+          "type": "str",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "SourceListResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "id",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "title",
+          "type": "Optional[str]",
+          "field": ""
+        },
+        {
+          "name": "topics",
+          "type": "Optional[List[str]]",
+          "field": ""
+        },
+        {
+          "name": "asset",
+          "type": "Optional[AssetModel]",
+          "field": ""
+        },
+        {
+          "name": "embedded",
+          "type": "bool  # Boolean flag indicating if source has embeddings",
+          "field": ""
+        },
+        {
+          "name": "embedded_chunks",
+          "type": "int  # Number of embedded chunks",
+          "field": ""
+        },
+        {
+          "name": "insights_count",
+          "type": "int",
+          "field": ""
+        },
+        {
+          "name": "created",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "updated",
+          "type": "str",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "SourceInsightResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "id",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "source_id",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "insight_type",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "content",
+          "type": "str",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "InsightCreationResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "source_id",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "transformation_id",
+          "type": "str",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "SaveAsNoteRequest",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "notebook_id",
+          "type": "Optional[str]",
+          "field": "None, description=\"Notebook ID to add note to\""
+        }
+      ]
+    },
+    {
+      "name": "CreateSourceInsightRequest",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "transformation_id",
+          "type": "str",
+          "field": "..., description=\"ID of transformation to apply\""
+        }
+      ]
+    },
+    {
+      "name": "SourceStatusResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "status",
+          "type": "Optional[str]",
+          "field": "None, description=\"Processing status\""
+        },
+        {
+          "name": "message",
+          "type": "str",
+          "field": "..., description=\"Descriptive message about the status\""
+        },
+        {
+          "name": "command_id",
+          "type": "Optional[str]",
+          "field": "None, description=\"Command ID if available\""
+        }
+      ]
+    },
+    {
+      "name": "ErrorResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "error",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "message",
+          "type": "str",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "SetApiKeyRequest",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "api_key",
+          "type": "Optional[str]",
+          "field": "None, description=\"API key for the provider\""
+        },
+        {
+          "name": "endpoint",
+          "type": "Optional[str]",
+          "field": "None, description=\"Endpoint URL for Azure OpenAI\""
+        },
+        {
+          "name": "api_version",
+          "type": "Optional[str]",
+          "field": "None, description=\"API version for Azure OpenAI\""
+        }
+      ]
+    },
+    {
+      "name": "ApiKeyStatusResponse",
+      "bases": "BaseModel",
+      "fields": []
+    },
+    {
+      "name": "TestConnectionResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "provider",
+          "type": "str",
+          "field": "..., description=\"Provider name that was tested\""
+        },
+        {
+          "name": "success",
+          "type": "bool",
+          "field": "..., description=\"Whether connection test succeeded\""
+        },
+        {
+          "name": "message",
+          "type": "str",
+          "field": "..., description=\"Result message with details\""
+        }
+      ]
+    },
+    {
+      "name": "MigrateFromEnvRequest",
+      "bases": "BaseModel",
+      "fields": []
+    },
+    {
+      "name": "MigrationResult",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "message",
+          "type": "str",
+          "field": "..., description=\"Summary message\""
+        }
+      ]
+    },
+    {
+      "name": "ProviderInfoResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "name",
+          "type": "str",
+          "field": "..., description=\"Provider identifier (e.g. openai)\""
+        },
+        {
+          "name": "display_name",
+          "type": "str",
+          "field": "..., description=\"Human-friendly provider name\""
+        }
+      ]
+    },
+    {
+      "name": "CapabilitiesResponse",
+      "bases": "BaseModel",
+      "fields": []
+    },
+    {
+      "name": "CreateCredentialRequest",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "name",
+          "type": "str",
+          "field": "..., description=\"Credential name\""
+        },
+        {
+          "name": "api_key",
+          "type": "Optional[str]",
+          "field": "None, description=\"API key (stored encrypted)\""
+        },
+        {
+          "name": "base_url",
+          "type": "Optional[str]",
+          "field": "None, description=\"Base URL\""
+        },
+        {
+          "name": "endpoint",
+          "type": "Optional[str]",
+          "field": "None, description=\"Endpoint URL (Azure)\""
+        },
+        {
+          "name": "api_version",
+          "type": "Optional[str]",
+          "field": "None, description=\"API version (Azure)\""
+        },
+        {
+          "name": "endpoint_llm",
+          "type": "Optional[str]",
+          "field": "None, description=\"LLM endpoint\""
+        },
+        {
+          "name": "endpoint_embedding",
+          "type": "Optional[str]",
+          "field": "None, description=\"Embedding endpoint\""
+        },
+        {
+          "name": "endpoint_stt",
+          "type": "Optional[str]",
+          "field": "None, description=\"STT endpoint\""
+        },
+        {
+          "name": "endpoint_tts",
+          "type": "Optional[str]",
+          "field": "None, description=\"TTS endpoint\""
+        },
+        {
+          "name": "project",
+          "type": "Optional[str]",
+          "field": "None, description=\"Project ID (Vertex)\""
+        },
+        {
+          "name": "location",
+          "type": "Optional[str]",
+          "field": "None, description=\"Location (Vertex)\""
+        }
+      ]
+    },
+    {
+      "name": "UpdateCredentialRequest",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "name",
+          "type": "Optional[str]",
+          "field": "None, description=\"Credential name\""
+        },
+        {
+          "name": "modalities",
+          "type": "Optional[List[str]]",
+          "field": "None, description=\"Supported modalities\""
+        },
+        {
+          "name": "api_key",
+          "type": "Optional[str]",
+          "field": "None, description=\"API key (stored encrypted)\""
+        },
+        {
+          "name": "base_url",
+          "type": "Optional[str]",
+          "field": "None, description=\"Base URL\""
+        },
+        {
+          "name": "endpoint",
+          "type": "Optional[str]",
+          "field": "None, description=\"Endpoint URL\""
+        },
+        {
+          "name": "api_version",
+          "type": "Optional[str]",
+          "field": "None, description=\"API version\""
+        },
+        {
+          "name": "endpoint_llm",
+          "type": "Optional[str]",
+          "field": "None, description=\"LLM endpoint\""
+        },
+        {
+          "name": "endpoint_embedding",
+          "type": "Optional[str]",
+          "field": "None, description=\"Embedding endpoint\""
+        },
+        {
+          "name": "endpoint_stt",
+          "type": "Optional[str]",
+          "field": "None, description=\"STT endpoint\""
+        },
+        {
+          "name": "endpoint_tts",
+          "type": "Optional[str]",
+          "field": "None, description=\"TTS endpoint\""
+        },
+        {
+          "name": "project",
+          "type": "Optional[str]",
+          "field": "None, description=\"Project ID\""
+        },
+        {
+          "name": "location",
+          "type": "Optional[str]",
+          "field": "None, description=\"Location\""
+        },
+        {
+          "name": "credentials_path",
+          "type": "Optional[str]",
+          "field": "None, description=\"Credentials path\""
+        }
+      ]
+    },
+    {
+      "name": "CredentialResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "id",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "name",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "provider",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "modalities",
+          "type": "List[str]",
+          "field": ""
+        },
+        {
+          "name": "created",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "updated",
+          "type": "str",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "CredentialDeleteResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "message",
+          "type": "str",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "DiscoveredModelResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "name",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "provider",
+          "type": "str",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "DiscoverModelsResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "credential_id",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "provider",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "discovered",
+          "type": "List[DiscoveredModelResponse]",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "RegisterModelData",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "name",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "provider",
+          "type": "str",
+          "field": ""
+        },
+        {
+          "name": "model_type",
+          "type": "str  # Required: user specifies the type",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "RegisterModelsRequest",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "models",
+          "type": "List[RegisterModelData]",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "RegisterModelsResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "created",
+          "type": "int",
+          "field": ""
+        },
+        {
+          "name": "existing",
+          "type": "int",
+          "field": ""
+        }
+      ]
+    },
+    {
+      "name": "NotebookDeletePreview",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "notebook_id",
+          "type": "str",
+          "field": "..., description=\"ID of the notebook\""
+        },
+        {
+          "name": "notebook_name",
+          "type": "str",
+          "field": "..., description=\"Name of the notebook\""
+        },
+        {
+          "name": "note_count",
+          "type": "int",
+          "field": "..., description=\"Number of notes that will be deleted\""
+        }
+      ]
+    },
+    {
+      "name": "NotebookDeleteResponse",
+      "bases": "BaseModel",
+      "fields": [
+        {
+          "name": "message",
+          "type": "str",
+          "field": "..., description=\"Success message\""
+        },
+        {
+          "name": "deleted_notes",
+          "type": "int",
+          "field": "..., description=\"Number of notes deleted\""
+        },
+        {
+          "name": "deleted_sources",
+          "type": "int",
+          "field": "..., description=\"Number of exclusive sources deleted\""
+        }
+      ]
+    }
+  ]
+}
