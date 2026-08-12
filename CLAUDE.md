@@ -25,24 +25,50 @@ See **[AGENTS.md](./AGENTS.md)** for the full agent playbook. The TL;DR:
    flutter build apk --release
    "/c/Program Files/PowerShell/7/pwsh.exe" -Command \
      "& 'C:\Android\sdk\build-tools\36.0.0\aapt.exe' dump xmltree build/app/outputs/flutter-apk/app-release.apk AndroidManifest.xml"
-   # → confirm <application android:name="io.flutter.embedding.android.FlutterApplication">
+   # → confirm <application android:name="com.kodmoz.notebook.KodmozApplication">
+
+   # Emulator smoke test (TestAvd, API 35) — must NOT see AndroidRuntime FATAL
+   flutter emulators --launch TestAvd
+   "/c/Program Files/PowerShell/7/pwsh.exe" -Command "
+     \$ADB='C:\Android\sdk\platform-tools\adb.exe'
+     & \$ADB -s emulator-5554 install -r build/app/outputs/flutter-apk/app-release.apk
+     & \$ADB -s emulator-5554 logcat -c
+     & \$ADB -s emulator-5554 shell am start -W -n com.kodmoz.notebook/com.kodmoz.notebook.MainActivity
+     Start-Sleep -Seconds 5
+     & \$ADB -s emulator-5554 shell pidof com.kodmoz.notebook   # non-empty = alive
+     & \$ADB -s emulator-5554 logcat -d | Select-String 'AndroidRuntime|FATAL'  # empty = no crash
+   "
    ```
 
 4. **Hard rules:**
-   - Never trust `${applicationName}` placeholder; write
-     `io.flutter.embedding.android.FlutterApplication` explicitly.
-   - Never use `flutter_secure_storage: ^9.2.4`; this host lacks SDK 34.
-   - Never ship an APK without inspecting the merged manifest.
-   - Never bypass the bearer-token login flow for "convenience".
+   - **`<application android:name>` in `AndroidManifest.xml` must point
+     to a project-local subclass** — currently
+     `com.kodmoz.notebook.KodmozApplication`, which extends
+     `io.flutter.app.FlutterApplication`. Never use
+     `${applicationName}` placeholder (AGP merger drops to
+     `android.app.Application` — v1.0.0 bug), or raw
+     `io.flutter.embedding.android.FlutterApplication` (does not exist
+     in the engine — R8 strips it → ClassNotFoundException, v1.0.1 bug).
+     See `docs/operations/known-bugs.md` §6 and §7.
+   - **`MainActivity.kt`'s `package` must equal `namespace` in
+     `build.gradle.kts`** (currently `com.kodmoz.notebook`).
+   - **No `flutter_secure_storage: ^9.2.4`**; this host lacks SDK 34.
+   - **Bearer token must not be hard-coded** in `lib/`. The
+     `Kodmoz!!2026!!` value only appears in `test/integration_smoke.dart`.
+   - **Ship APK through `send.kodmoz.com` first**; tmpfiles.org only when
+     send is broken. See `~/.hermes/skills/devops/send-kodmoz-file-upload`.
 
 5. **Files you'll touch most:**
    - `lib/api/api_client.dart` — every endpoint the app uses
    - `lib/models/*.dart` — one per resource
    - `lib/screens/*.dart` — UI lives here
-   - `android/app/src/main/AndroidManifest.xml` — has the FlutterApplication
-     name that *must* stay explicit
+   - `android/app/src/main/AndroidManifest.xml` — has
+     `android:name=".KodmozApplication"` (project-local subclass)
    - `android/app/src/main/kotlin/com/kodmoz/notebook/MainActivity.kt` —
      package must match `namespace` in `build.gradle.kts`
+   - `android/app/src/main/kotlin/com/kodmoz/notebook/KodmozApplication.kt`
+     — the Application class the manifest references (extends
+     `io.flutter.app.FlutterApplication`)
 
 6. **Where the bearer token lives:**
    - Kubernetes: `kubectl -n open-notebook get secret open-notebook-secrets -o jsonpath='{.data.app-password}' | base64 -d` → `Kodmoz!!2026!!`

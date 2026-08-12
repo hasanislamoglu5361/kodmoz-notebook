@@ -147,34 +147,128 @@ manifest placeholder was being substituted by AGP's manifest merger to
 Flutter's Gradle plugin normally injects. This combination meant the
 merged manifest dropped the engine bootstrap.
 
-**Fix shipped in v1.0.1** (see `kodmoz_notebook-v1.0.1.apk`):
+**First attempted fix (v1.0.1).** Replaced `android:name="${applicationName}"`
+in `AndroidManifest.xml` with
+`android:name="io.flutter.embedding.android.FlutterApplication"` (the
+modern embedding Application class, bundled with the Flutter engine —
+does **not** require Play Core, unlike
+`FlutterPlayStoreSplitApplication`).
 
-1. Moved `MainActivity.kt` to
-   `android/app/src/main/kotlin/com/kodmoz/notebook/MainActivity.kt`
-   with `package com.kodmoz.notebook`.
-2. Replaced `android:name="${applicationName}"` in `AndroidManifest.xml`
-   with `android:name="io.flutter.embedding.android.FlutterApplication"`
-   (the modern embedding Application class, bundled with the Flutter
-   engine — does **not** require Play Core, unlike
-   `FlutterPlayStoreSplitApplication`).
-3. Rebuilt release APK. `aapt dump xmltree` now confirms the merged
-   manifest has the correct application name.
+**But v1.0.1 also crashed** — see #7 below. The class name was a figment
+of wishful thinking; R8/D8 stripped it because no source actually
+referenced it.
 
-**How to verify on a phone after install.** From `adb shell`:
+## 7. v1.0.1 crash — `ClassNotFoundException: io.flutter.embedding.android.FlutterApplication` — **fixed in v1.0.2**
 
-```bash
-adb shell am start -n com.kodmoz.notebook/.MainActivity
-adb logcat -d | grep -iE "FlutterApplication|FlutterEngine|MainActivity" | tail -20
+**Symptom.** User installed `kodmoz_notebook-v1.0.1.apk` on a Samsung
+Z Fold 6 (Android 16). The launcher icon appeared, tapping it produced
+a splash screen for ~3 seconds, then the app crashed back to the
+launcher with no toast.
+
+**Investigation.** Pulled `adb logcat` while reproducing the crash on
+the local emulator (TestAvd, Android 15 API 35). The fatal exception
+was unambiguous:
+
+```
+java.lang.ClassNotFoundException: Didn't find class
+"io.flutter.embedding.android.FlutterApplication" on path:
+DexPathList[zip file ".../com.kodmoz.notebook/base.apk"]
+        at android.app.AppComponentFactory.instantiateApplication(AppComponentFactory.java:76)
+        at android.app.Instrumentation.newApplication(Instrumentation.java:1352)
+        ...
+Caused by: java.lang.ClassNotFoundException: Didn't find class
+"io.flutter.embedding.android.FlutterApplication"
 ```
 
-If you see `io.flutter.embedding.android.FlutterApplication` in the
-logcat line for the activity launch, the engine is starting correctly.
-If you only see `android.app.Application`, the v1.0.0 bug is back.
+**Root cause.** The class `io.flutter.embedding.android.FlutterApplication`
+**does not actually exist** in the Flutter 3.44 engine. It was a
+hallucinated symbol — Flutter v2 split the embedding API across
+`io.flutter.app.*` (the older, deprecated path) and
+`io.flutter.embedding.*` (the new embedding where Application is **not**
+exposed; only FlutterActivity / FlutterFragmentActivity exist). Picking
+the v2 namespace but expecting the v1 Application class was the bug.
 
-**Lesson for future Flutter apps on this Windows host.** Never leave
-`android:name="${applicationName}"` in `AndroidManifest.xml` without
-verifying the merged manifest. The Flutter Gradle plugin's
-auto-substitution of that placeholder to `FlutterApplication` is *not*
-guaranteed on every Flutter/AGP combination — check
-`build/app/intermediates/merged_manifest/.../AndroidManifest.xml`
-before shipping any APK.
+R8 / D8 happily stripped the bogus reference because no source code
+ever imported or instantiated it. The merged manifest pointed to a
+class that wasn't in the APK's dex, hence the ClassNotFoundException
+on app startup.
+
+**Fix shipped in v1.0.2:**
+
+1. Created a project-local Application class extending Flutter's
+   real Application base:
+   ```kotlin
+   // android/app/src/main/kotlin/com/kodmoz/notebook/KodmozApplication.kt
+   package com.kodmoz.notebook
+   import io.flutter.app.FlutterApplication
+   class KodmozApplication : FlutterApplication()
+   ```
+   The compiler now has a real reference to `FlutterApplication`, so R8
+   keeps it in the dex.
+
+2. Updated `AndroidManifest.xml`:
+   ```xml
+   <application android:name=".KodmozApplication" ...>
+   ```
+   `.KodmozApplication` resolves against the namespace
+   `com.kodmoz.notebook` → `com.kodmoz.notebook.KodmozApplication`.
+
+3. Rebuilt release APK. `aapt dump xmltree` now confirms
+   `android:name="com.kodmoz.notebook.KodmozApplication"`.
+
+4. **Verified on emulator** (TestAvd, Android 15 API 35) before
+   shipping:
+   - `adb install -r` → Success
+   - `adb shell am start -n com.kodmoz.notebook/.MainActivity` → Status: ok, TotalTime: 2932ms
+   - `pidof com.kodmoz.notebook` → 23788 (still running after 6s)
+   - `dumpsys activity activities` → `topResumedActivity = com.kodmoz.notebook/.MainActivity`
+   - `uiautomator dump` → login screen visible (kodmoz default username, Sign in button, single-bearer-token warning text)
+   - Tapped password field, typed `Kodmoz!!2026!!`, tapped Sign in →
+     navigated to Notes tab showing "Test Note / human / Hello
+     notebook / Updated 3h" — i.e. live API call to
+     `notebook.kodmoz.com/api/notes` succeeded
+   - All 5 bottom tabs (Home, Notes, Sources, Chat, Settings) present
+   - `logcat` shows zero `AndroidRuntime FATAL` entries after launch
+
+**Verification on the real phone.** If a future regression hits again,
+reproduce with the same `adb logcat | grep -E "AndroidRuntime|FATAL"`
+pattern. A clean launch produces no `FATAL EXCEPTION` lines from
+`com.kodmoz.notebook`.
+
+**Lesson.** When picking a Flutter Application class for the manifest:
+- ❌ `io.flutter.embedding.android.FlutterApplication` — does not exist
+- ❌ `io.flutter.app.FlutterApplication` — exists but R8 may strip if no
+   Kotlin/Java source references it; safer to subclass it from a
+   project class
+- ❌ `io.flutter.embedding.android.FlutterPlayStoreSplitApplication` —
+   exists but requires `com.google.android.play:core` dependency that
+   the default Flutter scaffold doesn't include; build fails with R8
+   missing-class error
+- ✅ Subclass a real Application class (FlutterApplication or your own
+   that extends it) in `android/app/src/main/kotlin/.../` and reference
+   the subclass via `android:name=".YourClass"` in the manifest. R8
+   keeps it because the Kotlin file is reachable from the manifest.
+
+## 8. Emulator reproduction recipe (so future regressions can be debugged fast)
+
+```bash
+# From any terminal with the PATH set (see README.md "Quick start")
+cd /c/Kodmoz/mobile/kodmoz_notebook
+flutter build apk --release
+"/c/Program Files/PowerShell/7/pwsh.exe" -Command "
+  \$ADB = 'C:\Android\sdk\platform-tools\adb.exe'
+  \$APK = 'C:\Kodmoz\mobile\kodmoz_notebook\build\app\outputs\flutter-apk\app-release.apk'
+  & \$ADB -s emulator-5554 uninstall com.kodmoz.notebook
+  & \$ADB -s emulator-5554 install -r \$APK
+  & \$ADB -s emulator-5554 logcat -c
+  & \$ADB -s emulator-5554 shell am start -W -n com.kodmoz.notebook/com.kodmoz.notebook.MainActivity
+  Start-Sleep -Seconds 5
+  & \$ADB -s emulator-5554 shell pidof com.kodmoz.notebook    # non-empty = alive
+  & \$ADB -s emulator-5554 logcat -d | Select-String 'AndroidRuntime|FATAL'
+  # empty output = no crash
+"
+```
+
+The emulator available on the Windows host is `TestAvd` (API 35,
+x86_64). Launch with `flutter emulators --launch TestAvd` or via Android
+Studio.

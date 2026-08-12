@@ -2,7 +2,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="Kodmoz Notebook"
-        android:name="io.flutter.embedding.android.FlutterApplication"
+        android:name=".KodmozApplication"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="false">
         <activity

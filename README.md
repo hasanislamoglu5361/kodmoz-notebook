@@ -81,20 +81,28 @@ After loading the skills, follow the read order in
 
 ### Hard rules
 
-- **`<application android:name>` in `AndroidManifest.xml` must be**
-  `io.flutter.embedding.android.FlutterApplication` **explicitly.** Never
-  leave `${applicationName}` placeholder — the Flutter Gradle plugin's
-  auto-substitution is not guaranteed, and `android.app.Application` will
-  silently kill the engine (the v1.0.0 launch bug).
+- **`<application android:name>` in `AndroidManifest.xml` must point to a
+  project-local subclass** — e.g. `android:name=".KodmozApplication"`,
+  where `KodmozApplication.kt` extends `io.flutter.app.FlutterApplication`.
+  Never use raw `io.flutter.embedding.android.FlutterApplication` (does
+  not exist — R8 strips it → ClassNotFoundException), raw
+  `io.flutter.embedding.android.FlutterPlayStoreSplitApplication`
+  (requires Play Core dep), or `${applicationName}` placeholder (AGP
+  merger substitutes to `android.app.Application` → engine never starts).
 - **`MainActivity.kt`'s `package` must equal `namespace` in
   `build.gradle.kts`** (currently `com.kodmoz.notebook`).
 - **No `flutter_secure_storage: ^9.2.4`** — the build host lacks
   Android SDK 34. Use `SharedPreferences`.
 - **Bearer token must not be hard-coded** in `lib/`. The
   `Kodmoz!!2026!!` value only appears in `test/integration_smoke.dart`.
-- **Every release build must be verified** with `aapt dump xmltree
-  app-release.apk AndroidManifest.xml` — confirm `<application
-  android:name="io.flutter.embedding.android.FlutterApplication">`.
+- **Every release build must be verified** with two steps in order:
+  1. `aapt dump xmltree app-release.apk AndroidManifest.xml` →
+     confirm `<application android:name="com.kodmoz.notebook.KodmozApplication">`.
+  2. Install on emulator + `adb logcat | grep AndroidRuntime FATAL` →
+     no output. See `docs/operations/known-bugs.md` §8 for the full
+     `adb shell am start ...` recipe.
+- **Always ship through `send.kodmoz.com`** (primary); `tmpfiles.org`
+  is fallback only — see `~/.hermes/skills/devops/send-kodmoz-file-upload`.
 
 For the broader Flutter-mobile-for-Kodmoz playbook (path conventions,
 Android build gotchas, the `bash` shadowing workaround), see the
@@ -175,20 +183,43 @@ Conventions (from `kodmoz_agents` mobile app):
 
 | Platform | Status | How |
 |---|---|---|
-| Android | ✓ verified | `flutter build apk --release` |
+| Android | ✓ verified on emulator + ready for real phone | `flutter build apk --release` |
 | Web (Chrome/Edge) | ✓ verified | `flutter build web --release` |
 | iOS | scaffolded | needs macOS + Xcode + `pod install` |
 | macOS | scaffolded | needs macOS |
 | Linux | scaffolded | needs GTK dev headers |
 | Windows | blocked | needs Developer Mode enabled in Windows Settings |
 
-Verified on this Windows host:
+Verified on this Windows host (12 Aug 2026):
 - `flutter analyze` → **0 issues**
 - `flutter test` → **1/1 pass**
 - `dart run test/integration_smoke.dart` → **7/7 endpoints parse real
   API responses (ALL OK)**
-- `flutter build apk --release` → **49.1 MB APK**, signed with debug keys
+- `flutter build apk --release` → **49.4 MB APK**, signed with debug keys
 - `flutter build web --release` → `build/web/` ready to serve
+- **Emulator smoke test** (`TestAvd`, Android 15 API 35): install →
+  launch → login with shared password → Notes tab loaded live data
+  from `notebook.kodmoz.com/api/notes` (see `docs/operations/known-bugs.md`
+  §8 for the full `adb logcat` recipe)
+
+---
+
+## Current shipping version
+
+**`kodmoz_notebook-v1.0.2.apk`** — 49.4 MB, SHA-256
+`99ea727262a21353ba3d81d7ede98be142e2e7711f0c23729e8702ae5efea1e6`.
+
+Previous versions:
+- **v1.0.0** — first build; Application class merged to
+  `android.app.Application`; app opens icon but is white-screen / instant
+  back-to-launcher. Fixed in v1.0.1.
+- **v1.0.1** — fixed the Application class name to
+  `io.flutter.embedding.android.FlutterApplication` (which does **not
+  exist** — R8 silently stripped it). Crashed with
+  `ClassNotFoundException` on every launch. Fixed in v1.0.2.
+- **v1.0.2** — added a project-local `KodmozApplication` subclassing
+  the real `io.flutter.app.FlutterApplication`; manifest references
+  `.KodmozApplication`. Verified clean launch on emulator.
 
 ---
 

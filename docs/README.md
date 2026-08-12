@@ -42,6 +42,26 @@ rebuild, debug or extend the mobile client without rediscovering the API.
 9. **[operations/known-bugs.md](operations/known-bugs.md)** — upstream +
    deployment bugs we hit, with workarounds shipped in the app.
 
+## Bundled skills
+
+The following Hermes skills are bundled verbatim in
+**[skills/](skills/)** so an agent picking up this repo on a fresh
+machine (without `~/.hermes/skills/`) has everything it needs:
+
+- **[skills/kodmoz-notebook-mobile.md](skills/kodmoz-notebook-mobile.md)** —
+  project-specific playbook (file map, API surface, manifest pitfalls,
+  build steps).
+- **[skills/kodmoz-flutter-mobile.md](skills/kodmoz-flutter-mobile.md)** —
+  Flutter-on-Kodmoz general rules (PATH, `flutter clean` migration,
+  iOS bundle shipping, `bash` shadowing).
+- **[skills/kodmoz-open-notebook-operations.md](skills/kodmoz-open-notebook-operations.md)** —
+  backend ops (pods, secret retrieval, SurrealDB queries).
+- **[skills/send-kodmoz-file-upload.md](skills/send-kodmoz-file-upload.md)** —
+  `send.kodmoz.com` upload API + pitfalls (primary file-shipping service).
+- **[skills/send-media-to-telegram.md](skills/send-media-to-telegram.md)** —
+  Telegram direct delivery + tmpfiles.org fallback (when `send.kodmoz.com`
+  is unavailable).
+
 ## What is *not* in this pack
 
 - The frontend (Next.js under `frontend/`) — this app talks to the API, not
