@@ -15,7 +15,7 @@ How to build the Flutter client and ship APKs to a phone or a static host.
 
 ## Build commands
 
-All commands assume the cwd is `C:\Kodmoz\mobile\kodmoz_notebook\`.
+All commands assume the cwd is `/home/ben/kodmoz\mobile\kodmoz_notebook\`.
 
 ```bash
 # Re-fetch dependencies after a pubspec change

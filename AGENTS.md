@@ -27,7 +27,7 @@ Hermes ortamındaysan, çalışmaya başlamadan önce şu üç skill'i
 
 | | |
 |---|---|
-| **Path** | `C:\Kodmoz\mobile\kodmoz_notebook\` |
+| **Path** | `/home/ben/kodmoz\mobile\kodmoz_notebook\` |
 | **Dil** | Dart + Flutter 3.44.8 |
 | **Hedef** | Android, iOS, macOS, Linux, Windows, Web |
 | **Backend** | `https://notebook.kodmoz.com/api` (Open Notebook, FastAPI + SurrealDB) |

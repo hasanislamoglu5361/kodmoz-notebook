@@ -123,7 +123,7 @@ mobile app the storage question matters:
   library's compileSdk via `subprojects { afterEvaluate { ... } }` in
   the project root `build.gradle.kts`.
 
-The Kodmoz Notebook mobile client at `C:\Kodmoz\mobile\kodmoz_notebook\`
+The Kodmoz Notebook mobile client at `/home/ben/kodmoz\mobile\kodmoz_notebook\`
 uses this pattern and ships release APKs end-to-end.
 
 See `references/open-notebook-ai-models.md` for tested API payloads and runtime evidence.

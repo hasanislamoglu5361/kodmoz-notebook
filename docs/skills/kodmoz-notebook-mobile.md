@@ -18,7 +18,7 @@ Build, run, debug and extend the **`kodmoz_notebook`** Flutter app — the
 mobile/desktop/web client for **`notebook.kodmoz.com`** (a self-hosted
 Open Notebook deployment on the Kodmoz k3s cluster).
 
-> Source: `C:\Kodmoz\mobile\kodmoz_notebook\` (single Flutter codebase,
+> Source: `/home/ben/kodmoz\mobile\kodmoz_notebook\` (single Flutter codebase,
 > 6 platforms). Companion docs live in `docs/` inside the project. For
 > the broader Flutter-on-Kodmoz playbook see `kodmoz-flutter-mobile`.
 > For the backend see `kodmoz-open-notebook-operations`.
@@ -28,7 +28,7 @@ Open Notebook deployment on the Kodmoz k3s cluster).
 - "Build the Kodmoz Notebook app", "Fix a bug in the notebook mobile
   client", "Ship a new notebook screen", "Why won't the APK launch on
   Android?", "Add Open Notebook support to mobile", "Update the docs".
-- Any work touching `C:\Kodmoz\mobile\kodmoz_notebook\`.
+- Any work touching `/home/ben/kodmoz\mobile\kodmoz_notebook\`.
 
 ## Quick start (verified on this Windows host, Aug 2026)
 

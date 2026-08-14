@@ -12,12 +12,12 @@ metadata:
 
 # Kodmoz Flutter Mobile Apps
 
-Build and ship Flutter mobile clients for Kodmoz's web services. The first instance is `kodmoz_agents` (live, `C:\Kodmoz\mobile\agents\`), serving `agents.kodmoz.com`'s FastAPI backend. Future instances follow the same shape: a single codebase, Android APK + iOS bundle, Material 3 dark theme, REST client → models → screens.
+Build and ship Flutter mobile clients for Kodmoz's web services. The first instance is `kodmoz_agents` (live, `/home/ben/kodmoz\mobile\agents\`), serving `agents.kodmoz.com`'s FastAPI backend. Future instances follow the same shape: a single codebase, Android APK + iOS bundle, Material 3 dark theme, REST client → models → screens.
 
 ## Trigger
 
 - Hasan asks for "mobile app" / "Android app" / "iOS app" of any `*.kodmoz.com` subdomain.
-- Adding a new screen, fixing a build, or shipping an update to an existing Flutter project under `C:\Kodmoz\mobile\`.
+- Adding a new screen, fixing a build, or shipping an update to an existing Flutter project under `/home/ben/kodmoz\mobile\`.
 - Deploying a Flutter app to a phone for QA.
 
 ## Architecture (proven, August 2026, `kodmoz_agents`)
@@ -120,7 +120,7 @@ Cannot be built on this Windows host — needs macOS + Xcode + CocoaPods. The Fl
    open ios/Runner.xcworkspace   # then Product → Archive in Xcode for App Store / TestFlight
    ```
 
-If Hasan wants the iOS build on his Mac, ask whether he wants me to ship the `C:\Kodmoz\mobile\<name>\` folder to him via `send.kodmoz.com` or similar — we have no Mac shell.
+If Hasan wants the iOS build on his Mac, ask whether he wants me to ship the `/home/ben/kodmoz\mobile\<name>\` folder to him via `send.kodmoz.com` or similar — we have no Mac shell.
 
 ## `bash` hash override (Flutter-specific symptom)
 
@@ -167,7 +167,7 @@ Auth: NONE — the endpoint is currently public. If Kodmoz adds Cloudflare Acces
 
 To build `kodmoz_<other>` for another Kodmoz subdomain (e.g. `kodmoz_send` for `send.kodmoz.com`, `kodmoz_music` for `music.kodmoz.com`):
 
-1. `flutter create --org com.kodmoz --project-name kodmoz_<other> <name>` in `C:\Kodmoz\mobile\`
+1. `flutter create --org com.kodmoz --project-name kodmoz_<other> <name>` in `/home/ben/kodmoz\mobile\`
 2. Replace `lib/api/api_client.dart` baseUrl + endpoint methods
 3. Replace `lib/models/*.dart` with the new service's schemas
 4. Replace screens — keep `widgets/status_badge.dart`, `widgets/stat_tile.dart`, `widgets/format.dart` as-is (they're generic)
@@ -180,8 +180,8 @@ The shared widgets + scaffolding should get a second app to "compiles and runs" 
 
 | App | Path | Backend | Notes |
 |---|---|---|---|
-| `kodmoz_agents` | `C:\Kodmoz\mobile\agents\` | `agents.kodmoz.com` (FastAPI) | August 2026 — kanban dashboard. Live on Android APK. |
-| `kodmoz_notebook` | `C:\Kodmoz\mobile\kodmoz_notebook\` | `notebook.kodmoz.com` (Open Notebook, FastAPI + SurrealDB) | August 2026 — login + 5 tabs (Home/Notes/Sources/Chat/Settings). See `kodmoz-open-notebook-operations` skill for backend. |
+| `kodmoz_agents` | `/home/ben/kodmoz\mobile\agents\` | `agents.kodmoz.com` (FastAPI) | August 2026 — kanban dashboard. Live on Android APK. |
+| `kodmoz_notebook` | `/home/ben/kodmoz\mobile\kodmoz_notebook\` | `notebook.kodmoz.com` (Open Notebook, FastAPI + SurrealDB) | August 2026 — login + 5 tabs (Home/Notes/Sources/Chat/Settings). See `kodmoz-open-notebook-operations` skill for backend. |
 
 ### `kodmoz_notebook` specifics (added August 2026)
 

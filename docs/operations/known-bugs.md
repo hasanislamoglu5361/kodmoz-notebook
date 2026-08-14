@@ -257,7 +257,7 @@ cd /c/Kodmoz/mobile/kodmoz_notebook
 flutter build apk --release
 "/c/Program Files/PowerShell/7/pwsh.exe" -Command "
   \$ADB = 'C:\Android\sdk\platform-tools\adb.exe'
-  \$APK = 'C:\Kodmoz\mobile\kodmoz_notebook\build\app\outputs\flutter-apk\app-release.apk'
+  \$APK = '/home/ben/kodmoz\mobile\kodmoz_notebook\build\app\outputs\flutter-apk\app-release.apk'
   & \$ADB -s emulator-5554 uninstall com.kodmoz.notebook
   & \$ADB -s emulator-5554 install -r \$APK
   & \$ADB -s emulator-5554 logcat -c
